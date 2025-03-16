@@ -1,11 +1,5 @@
 [
   {
-    "StudentID": 1,
-    "StudentName": "Jane Smith",
-    "StudentGender": "Male",
-    "StudentPayment": "Paid"
-  },
-  {
     "StudentID": 2,
     "StudentName": "John Doe",
     "StudentGender": "Male",
@@ -15,18 +9,12 @@
     "StudentID": 3,
     "StudentName": "mmo",
     "StudentGender": "Female",
-    "StudentPayment": "Unpaid"
+    "StudentPayment": "Paid"
   },
   {
     "StudentID": 4,
     "StudentName": "Jane Smith",
     "StudentGender": "Male",
-    "StudentPayment": "Paid"
-  },
-  {
-    "StudentID": 5,
-    "StudentName": "mmo",
-    "StudentGender": "Female",
     "StudentPayment": "Paid"
   },
   {
@@ -36,9 +24,9 @@
     "StudentPayment": "Paid"
   },
   {
-    "StudentID": 7,
-    "StudentName": "Jane Smith",
-    "StudentGender": "Male",
-    "StudentPayment": "Paid"
+    "StudentID": 5,
+    "StudentName": "Ratha",
+    "StudentGender": "Female",
+    "StudentPayment": "Unpaid"
   }
 ]

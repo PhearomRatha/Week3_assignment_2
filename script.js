@@ -1,4 +1,4 @@
-
+//fetching data from the server
 async function fetchStudents() {
     try {
         const response = await fetch('data.php?action=get');
@@ -21,6 +21,7 @@ async function fetchStudents() {
     }
 }
 
+// Render the student table
 function renderStudentTable(students) {
     const tableBody = document.getElementById('studentTableBody');
     tableBody.innerHTML = '';
@@ -40,7 +41,7 @@ function renderStudentTable(students) {
     });
 }
 
-// Handle form submission
+// Add event listener to the form
 document.getElementById('studentForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const studentID = document.getElementById('studentID').value;
@@ -63,7 +64,7 @@ document.getElementById('studentForm').addEventListener('submit', async (e) => {
         const data = await response.json();
         if (data.success) {
             fetchStudents();
-            document.getElementById('formContainer').classList.add('hidden');
+            document.getElementById('formModal').style.display = 'none';
         } else {
             alert(data.message || 'Error saving data');
         }
@@ -72,6 +73,8 @@ document.getElementById('studentForm').addEventListener('submit', async (e) => {
         alert('There was an error saving the student data.');
     }
 });
+
+// Edit student 
 async function editStudent(studentID) {
     try {
         const response = await fetch(`data.php?action=getById&id=${studentID}`);
@@ -79,18 +82,20 @@ async function editStudent(studentID) {
         if (student.message) {
             alert(student.message);
         } else {
+            console.log('Student to edit:', student);
+
             document.getElementById('studentID').value = student.StudentID;
             document.getElementById('studentName').value = student.StudentName;
             document.getElementById('studentGender').value = student.StudentGender;
             document.getElementById('studentPayment').value = student.StudentPayment;
-            document.getElementById('formContainer').classList.remove('hidden');
+
+            document.getElementById('formModal').style.display = 'flex';
             document.getElementById('submitBtn').textContent = 'Update Student';
         }
     } catch (error) {
         console.error('Error:', error);
     }
 }
-
 // Delete student
 async function deleteStudent(studentID) {
     if (confirm('Are you sure you want to delete this student?')) {
@@ -111,41 +116,20 @@ async function deleteStudent(studentID) {
     }
 }
 
-
-document.getElementById('cancelBtn').addEventListener('click', () => {
-    document.getElementById('formContainer').classList.add('hidden');
+// Event listeners
+document.getElementById('cancelBtn').addEventListener('click', function () {
+    document.getElementById('formModal').style.display = 'none';
+    document.getElementById('studentForm').reset();
+    document.getElementById('submitBtn').textContent = 'Add Student';
 });
 
-document.getElementById('btnPost').addEventListener('click', () => {
-    document.getElementById('formContainer').classList.remove('hidden');
+document.getElementById('btnPost').addEventListener('click', function () {
+    document.getElementById('formModal').style.display = 'flex';
     document.getElementById('studentForm').reset();
     document.getElementById('studentID').value = '';
     document.getElementById('submitBtn').textContent = 'Add Student';
 });
 
+
+
 fetchStudents();
-
-
-
-
-// pop up form
-const btnPost = document.getElementById("btnPost");
-const formModal = document.getElementById("formModal");
-const cancelBtn = document.getElementById("cancelBtn");
-
-
-btnPost.addEventListener("click", function () {
-    formModal.style.display = "flex";
-});
-
-
-cancelBtn.addEventListener("click", function () {
-    formModal.style.display = "none";
-});
-
-
-window.addEventListener("click", function (event) {
-    if (event.target === formModal) {
-        formModal.style.display = "none";
-    }
-});
